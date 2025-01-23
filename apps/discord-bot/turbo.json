@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "//"
+  ],
+  "tasks": {
+    "build": {
+      "outputs": [
+        "../../build/bot/**"
+      ]
+    },
+    "dev": {
+      "dependsOn": [],
+      "cache": false,
+      "persistent": true,
+      "outputs": []
+    }
+  }
+}
