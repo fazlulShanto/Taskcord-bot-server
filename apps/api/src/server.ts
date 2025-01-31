@@ -1,22 +1,30 @@
-import { json, urlencoded } from "body-parser";
-import express, { type Express } from "express";
-import morgan from "morgan";
-import cors from "cors";
+import type { FastifyInstance, FastifyServerOptions } from "fastify";
+import Fastify from "fastify";
 
-export const createServer = (): Express => {
-  const app = express();
-  app
-    .disable("x-powered-by")
-    .use(morgan("dev"))
-    .use(urlencoded({ extended: true }))
-    .use(json())
-    .use(cors())
-    .get("/message/:name", (req, res) => {
-      return res.json({ message: `hello ${req.params.name}` });
-    })
-    .get("/status", (_, res) => {
-      return res.json({ ok: true });
-    });
+export class TaskcordServer {
+    private app: FastifyInstance;
+    private serverOptions: FastifyServerOptions;
 
-  return app;
-};
+    constructor() {
+        this.serverOptions = {
+            logger: {
+                level: "info",
+                transport: {
+                    target: "pino-pretty",
+                    options: {
+                        translateTime: "HH:MM:ss Z",
+                        ignore: "pid,hostname",
+                        singleLine: true,
+                    },
+                },
+            },
+        };
+        this.app = Fastify(this.serverOptions) as FastifyInstance;
+    }
+
+    public getApp(): FastifyInstance {
+        return this.app;
+    }
+}
+
+export default TaskcordServer;
