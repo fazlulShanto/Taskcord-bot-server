@@ -8,17 +8,20 @@
     "build": "tsup",
     "clean": "rm -rf ../../build/bot",
     "lint": "eslint src/",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "register-commands": "tsx src/config/command-register.ts"
   },
   "dependencies": {
     "discord.js": "^14.17.3",
     "dotenv": "^16.4.7"
   },
   "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/luxon": "^3.4.2",
+    "luxon": "^3.5.0",
     "tsup": "^8.0.2",
     "tsx": "^4.19.2",
-    "typescript": "5.5.4",
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*"
+    "typescript": "5.5.4"
   }
 }
