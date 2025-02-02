@@ -1,40 +1,122 @@
-# Turborepo kitchen sink starter
+Here's the complete formatted README.md content that you can directly copy:
 
-This is an official starter Turborepo with multiple meta-frameworks all working in harmony and sharing packages.
+# Taskcord
 
-This example also shows how to use [Workspace Configurations](https://turbo.build/repo/docs/core-concepts/monorepos/configuring-workspaces).
+A monorepo containing a Discord bot and REST API for task management.
 
-## Using this example
+## 📦 Project Structure
 
-Run the following command:
-
-```sh
-npx create-turbo@latest -e kitchen-sink
+```bash
+apps/
+├── api/         # REST API built with Fastify
+└── discord-bot/ # Discord bot using discord.js
 ```
 
-## What's inside?
+## 🚀 Features
 
-This Turborepo includes the following packages and apps:
+### API
 
-### Apps and Packages
+-   RESTful endpoints for task management
+-   OpenAPI/Swagger documentation at `/api/docs`
+-   Health check and server monitoring endpoints
+-   Built with Fastify for high performance
 
-- `api`: an [Express](https://expressjs.com/) server
-- `storefront`: a [Next.js](https://nextjs.org/) app
-- `admin`: a [Vite](https://vitejs.dev/) single page app
-- `blog`: a [Remix](https://remix.run/) blog
-- `@repo/eslint-config`: ESLint configurations used throughout the monorepo
-- `@repo/jest-presets`: Jest configurations
-- `@repo/logger`: isomorphic logger (a small wrapper around console.log)
-- `@repo/ui`: a dummy React UI library (which contains `<CounterButton>` and `<Link>` components)
-- `@repo/typescript-config`: tsconfig.json's used throughout the monorepo
+### Discord Bot
 
-Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
+-   Slash command support
+-   Server information commands
+-   Administrative commands
+-   Built with discord.js
 
-### Utilities
+## 🛠️ Tech Stack
 
-This Turborepo has some additional tools already setup for you:
+-   **Language:** TypeScript
+-   **API Framework:** Fastify
+-   **Discord Framework:** discord.js
+-   **Package Manager:** pnpm (workspace)
+-   **Documentation:** OpenAPI/Swagger
+-   **Linting:** ESLint
+-   **Building:** tsup
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Jest](https://jestjs.io) test runner for all things JavaScript
-- [Prettier](https://prettier.io) for code formatting
+## 🏗️ Development
+
+### Prerequisites
+
+-   Node.js 18+
+-   pnpm
+
+### Setup
+
+1. Clone the repository
+
+```bash
+git clone <repository-url>
+cd taskcord
+```
+
+2. Install dependencies
+
+```bash
+pnpm install
+```
+
+3. Set up environment variables
+
+```bash
+# For API
+cp apps/api/.env.example apps/api/.env
+
+# For Discord Bot
+cp apps/discord-bot/.env.example apps/discord-bot/.env
+```
+
+4. Start development servers
+
+```bash
+# API
+pnpm --filter api dev
+
+# Discord Bot
+pnpm --filter bot dev
+```
+
+### Building
+
+```bash
+# Build all apps
+pnpm build
+
+# Build specific app
+pnpm --filter api build
+pnpm --filter bot build
+```
+
+## 📝 Environment Variables
+
+### API
+
+-   `PORT` - Server port (default: 5001)
+-   `NODE_ENV` - Environment (prod/staging/local)
+-   `DATABASE_URL` - Database connection string
+-   `REDIS_URL` - Redis connection string
+
+### Discord Bot
+
+-   `DISCORD_BOT_TOKEN` - Discord bot token
+-   `DISCORD_CLIENT_ID` - Discord application client ID
+-   `DISCORD_SHOULD_REGISTER_COMMANDS` - Whether to register slash commands
+
+## 📚 Documentation
+
+API documentation is available at `/api/docs` when running in local environment.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a new branch
+3. Make your changes
+4. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
