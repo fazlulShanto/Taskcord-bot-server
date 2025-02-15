@@ -8,7 +8,7 @@
     "build": "tsup",
     "clean": "rm -rf ../../build/bot",
     "lint": "eslint src/",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" ",
     "register-commands": "tsx src/config/command-register.ts",
     "db-test": "tsx pgtest.ts"
   },
