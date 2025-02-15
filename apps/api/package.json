@@ -9,7 +9,7 @@
     "clean": "rm -rf ../../build/api",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src/",
-    "test": "vitest",
+    "test": "vitest --run",
     "test:watch": "vitest --watch",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
