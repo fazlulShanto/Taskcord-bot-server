@@ -5,12 +5,12 @@ import type {
     GetApiStatusResponse,
     GetServerHardwareInfoResponse,
 } from "@/modules/utility/utility.schema";
-import { start } from "../index";
+import { startServer } from "../server";
 
 let app: FastifyInstance;
 
 beforeAll(async () => {
-    app = await start();
+    app = await startServer();
     await app.ready();
 });
 
