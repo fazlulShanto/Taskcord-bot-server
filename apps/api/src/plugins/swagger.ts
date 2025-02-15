@@ -15,7 +15,7 @@ export default fastifyPlugin(
             openapi: {
                 info: {
                     title: "Taskcord API",
-                    version: "1.0.0",
+                    version: "0.0.5",
                 },
             },
         });

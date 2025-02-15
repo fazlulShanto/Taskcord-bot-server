@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const NODE_ENVS = ["prod", "staging", "local"] as const;
+const NODE_ENVS = ["prod", "staging", "local", "test"] as const;
 type NODE_ENV = (typeof NODE_ENVS)[number];
 
 declare module "fastify" {

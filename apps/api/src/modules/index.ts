@@ -1,6 +1,7 @@
 import type { FastifyInstance, FastifyPluginOptions } from "fastify";
 import { fastifyPlugin } from "fastify-plugin";
 import utility from "./utility";
+import auth from "./auth";
 
 const getOptionsWithPrefix = (
     options: FastifyPluginOptions,
@@ -17,8 +18,9 @@ export default fastifyPlugin(
         await Promise.all([
             fastify.register(
                 utility,
-                getOptionsWithPrefix(options, "/utility")
+                getOptionsWithPrefix(options, "/stable/utility")
             ),
+            fastify.register(auth, getOptionsWithPrefix(options, "/edge/auth")),
         ]);
     }
 );

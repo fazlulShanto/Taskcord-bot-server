@@ -10,5 +10,7 @@ module.exports = {
         "import/no-named-as-default-member": "off",
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-unsafe-assignment": "off",
+        "unicorn/filename-case": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
     },
 };

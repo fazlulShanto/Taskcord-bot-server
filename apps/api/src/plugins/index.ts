@@ -17,9 +17,9 @@ export default fastifyPlugin(async (fastify: FastifyInstance) => {
         // fastify.register(redis),
         // fastify.register(cookie),
         // fastify.register(cors),
-        fastify.config.NODE_ENV === "local"
-            ? /* istanbul ignore next */ fastify.register(swagger)
-            : /* istanbul ignore next */ null,
+        ["local", "development"].includes(fastify.config.NODE_ENV)
+            ? fastify.register(swagger)
+            : null,
     ]);
 
     // await Promise.all([fastify.register(jwt)]);
