@@ -32,7 +32,6 @@ export default class UtilityController {
     ) {
         try {
             const status = this.utilityService.getApiStatus();
-
             return reply.code(200).send(status);
         } catch (e) {
             return reply.badRequest("Something went wrong");

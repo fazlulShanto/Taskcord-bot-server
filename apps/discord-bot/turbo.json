@@ -5,7 +5,7 @@
   "tasks": {
     "build": {
       "outputs": [
-        "../../build/bot/**"
+        "../../build/bot/src/**"
       ]
     },
     "dev": {

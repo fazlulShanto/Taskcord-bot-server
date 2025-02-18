@@ -5,7 +5,7 @@
   "tasks": {
     "build": {
       "outputs": [
-        "../../build/api/**"
+        "../../build/api/src/**"
       ]
     }
   }

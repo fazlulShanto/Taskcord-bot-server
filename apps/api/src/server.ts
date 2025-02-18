@@ -1,12 +1,22 @@
 import type { FastifyInstance, FastifyServerOptions } from "fastify";
 import Fastify from "fastify";
 import * as dotenv from "dotenv";
+import type { Redis } from "ioredis";
 import globalCacheDb from "@/db/redis/redis";
 import { checkConnection } from "@/db/postgres.db";
 import modules from "./modules";
 import plugins from "./plugins";
 
 dotenv.config();
+
+declare module "fastify" {
+    interface FastifyRequest {
+        cacheDb: Redis;
+    }
+    interface FastifyInstance {
+        cacheDb: Redis;
+    }
+}
 
 export default class TaskcordServer {
     private app: FastifyInstance | null = null;
@@ -30,6 +40,8 @@ export default class TaskcordServer {
 
     public async initialize(): Promise<void> {
         this.app = Fastify(this.serverOptions) as FastifyInstance;
+        this.app.decorate("cacheDb", globalCacheDb);
+
         await this.app.register(plugins);
         await this.app.register(modules, { prefix: "/api" });
     }
