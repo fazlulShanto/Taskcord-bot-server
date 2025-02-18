@@ -34,7 +34,7 @@ export class UserDal {
             .where(eq(usersModel.discordId, discordId))
             .limit(1);
 
-        return result[0] ?? null;
+        return result.at(0) ?? null;
     }
 
     /**

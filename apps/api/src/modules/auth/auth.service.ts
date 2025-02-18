@@ -1,6 +1,11 @@
 import crypto from "node:crypto";
 import GlobalUtils from "@/utils/golabalUtils";
-import type { DiscordExchangeCodeResponse } from "@/types/discord-auth";
+import type {
+    DiscordExchangeCodeResponse,
+    DiscordUserInfoResponse,
+} from "@/types/discord-auth";
+import type { DbUser } from "@/db/models/user.model";
+import { UserDal } from "@/db/dal/user.dal";
 
 function generateState() {
     return crypto.randomBytes(16).toString("hex");
@@ -51,5 +56,43 @@ export default class AuthService {
         });
         const data: DiscordExchangeCodeResponse = await response.json();
         return data;
+    }
+
+    public async getUserInfoFromDiscord(accessToken: string) {
+        const API_ENDPOINT = `https://discord.com/api/v10/users/@me`;
+        const response = await fetch(API_ENDPOINT, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        return response.json() as Promise<DiscordUserInfoResponse>;
+    }
+
+    public async getUserByDiscordId(discordId: string) {
+        const dbUser = await UserDal.getUserByDiscordId(discordId);
+        return dbUser;
+    }
+
+    public async handleDiscordLogin(
+        discordUser: DiscordUserInfoResponse,
+        refreshToken: string
+    ) {
+        let existingUser = await UserDal.getUserByDiscordId(discordUser.id);
+
+        if (!existingUser) {
+            // create user
+            existingUser = await UserDal.createUser({
+                discordId: discordUser.id,
+                avatar: discordUser.avatar,
+                fullName: discordUser.username,
+                discordRefreshToken: refreshToken,
+                email: discordUser.email,
+            });
+        }
+        if (!existingUser) {
+            throw new Error("User not found and could not be created.");
+        }
+        return existingUser;
     }
 }

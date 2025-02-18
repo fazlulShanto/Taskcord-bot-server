@@ -15,7 +15,7 @@ export const usersModel = pgTable("users", {
         .$defaultFn(() => uuidv7()),
     discordId: varchar("discord_id").unique().notNull(),
     fullName: varchar("full_name"),
-    nickName: varchar("nick_name").$defaultFn(() => sql`full_name`),
+    nickName: varchar("nick_name").default(""),
     avatar: varchar("avatar"),
     email: varchar("email").default(""),
     discordRefreshToken: varchar("discord_refresh_token").notNull(),

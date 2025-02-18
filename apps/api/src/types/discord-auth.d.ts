@@ -38,3 +38,26 @@ export interface DiscordExchangeCodeResponse {
     refresh_token: string;
     scope: string;
 }
+export interface DiscordUserInfoResponse {
+    id: string;
+    username: string;
+    avatar: string;
+    discriminator: string;
+    public_flags: number;
+    flags: number;
+    banner: string | null;
+    accent_color: string | null;
+    global_name: string;
+    avatar_decoration_data: {
+        asset: string;
+        sku_id: string;
+        expires_at: number | null;
+    };
+    banner_color: string | null;
+    clan: string | null;
+    mfa_enabled: boolean;
+    locale: string;
+    premium_type: number;
+    email: string;
+    verified: boolean;
+}
