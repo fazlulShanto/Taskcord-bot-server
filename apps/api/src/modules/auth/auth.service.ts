@@ -4,7 +4,6 @@ import type {
     DiscordExchangeCodeResponse,
     DiscordUserInfoResponse,
 } from "@/types/discord-auth";
-import type { DbUser } from "@/db/models/user.model";
 import { UserDal } from "@/db/dal/user.dal";
 
 function generateState() {

@@ -62,6 +62,8 @@ export default class AuthController {
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
         });
 
-        return reply.redirect("http://localhost:5173/playground");
+        return reply.redirect(
+            `http://localhost:5173/playground?auth_token=${jwtToken}`
+        );
     }
 }

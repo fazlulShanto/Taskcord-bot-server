@@ -2,6 +2,7 @@ import type { FastifyInstance, FastifyPluginOptions } from "fastify";
 import { fastifyPlugin } from "fastify-plugin";
 import utility from "./utility";
 import auth from "./auth";
+import userRoutes from "./user";
 
 const getOptionsWithPrefix = (
     options: FastifyPluginOptions,
@@ -21,6 +22,10 @@ export default fastifyPlugin(
                 getOptionsWithPrefix(options, "/stable/utility")
             ),
             fastify.register(auth, getOptionsWithPrefix(options, "/edge/auth")),
+            fastify.register(
+                userRoutes,
+                getOptionsWithPrefix(options, "/edge/users")
+            ),
         ]);
     }
 );
