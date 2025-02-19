@@ -61,4 +61,18 @@ export default function UtilityRoute(fastify: FastifyInstance) {
         },
         utilityController.getServerHardwareInfoHandler.bind(utilityController)
     );
+
+    fastify.get(
+        "/status", // "/server-status" to distinguish from API specific routes?
+        {
+            schema: {
+                tags: ["Utility"],
+                description: "Get the status of the server if it's running",
+                response: {
+                    200: $ref("getServerStatusResponseSchema"),
+                },
+            },
+        },
+        utilityController.getServerStatusHandler.bind(utilityController)
+    );
 }
