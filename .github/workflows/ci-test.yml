@@ -8,34 +8,36 @@ on:
         types: [opened, synchronize]
 
 jobs:
-    build:
+    build_and_test:
         name: Build and Test
         timeout-minutes: 15
         runs-on: ubuntu-latest
         environment: test
-        env:
-            PORT: ${{ vars.PORT }}
-            NODE_ENV: ${{ vars.NODE_ENV }}
-            REMOTE_BACKEND_HOST_URL: ${{ vars.REMOTE_BACKEND_HOST_URL }}
-            LOCAL_BACKEND_HOST_URL: ${{ vars.LOCAL_BACKEND_HOST_URL }}
-            DISCORD_OAUTH_REDIRECT_URL: ${{ vars.DISCORD_OAUTH_REDIRECT_URL }}
-            DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
-            DISCORD_AUTH_CLIENT_ID: ${{ vars.DISCORD_AUTH_CLIENT_ID }}
-            DISCORD_AUTH_CLIENT_SECRET: ${{ secrets.DISCORD_AUTH_CLIENT_SECRET }}
-            FRONTEND_REDIRECT_URL: ${{ vars.FRONTEND_REDIRECT_URL }}
-            JWT_SECRET: ${{ vars.JWT_SECRET }}
-            JWT_MAX_AGE: ${{ secrets.JWT_MAX_AGE }}
-            DISCORD_OAUTH_SCOPES: ${{ vars.DISCORD_OAUTH_SCOPES }}
-            PG_DB_URL_LOCAL: ${{ secrets.PG_DB_URL_LOCAL }}
-            PG_DB_URL_PROD: ${{ secrets.PG_DB_URL_PROD }}
-            REDIS_URL_LOCAL: ${{ secrets.REDIS_URL_LOCAL }}
-            REDIS_URL_PROD: ${{ secrets.REDIS_URL_PROD }}
 
         steps:
             - name: Check out code
               uses: actions/checkout@v4
               with:
                   fetch-depth: 2
+
+            - name: Create .env file
+              run: |
+                  echo "PORT=${{ vars.PORT }}" > ./apps/api/.env
+                  echo "NODE_ENV=${{ vars.NODE_ENV }}" >> ./apps/api/.env
+                  echo "REMOTE_BACKEND_HOST_URL=${{ vars.REMOTE_BACKEND_HOST_URL }}" >> ./apps/api/.env
+                  echo "LOCAL_BACKEND_HOST_URL=${{ vars.LOCAL_BACKEND_HOST_URL }}" >> ./apps/api/.env
+                  echo "DISCORD_OAUTH_REDIRECT_URL=${{ vars.DISCORD_OAUTH_REDIRECT_URL }}" >> ./apps/api/.env
+                  echo "DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }}" >> ./apps/api/.env
+                  echo "DISCORD_AUTH_CLIENT_ID=${{ vars.DISCORD_AUTH_CLIENT_ID }}" >> ./apps/api/.env
+                  echo "DISCORD_AUTH_CLIENT_SECRET=${{ secrets.DISCORD_AUTH_CLIENT_SECRET }}" >> ./apps/api/.env
+                  echo "FRONTEND_REDIRECT_URL=${{ vars.FRONTEND_REDIRECT_URL }}" >> ./apps/api/.env
+                  echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> ./apps/api/.env
+                  echo "JWT_MAX_AGE=${{ vars.JWT_MAX_AGE }}" >> ./apps/api/.env
+                  echo "DISCORD_OAUTH_SCOPES=${{ vars.DISCORD_OAUTH_SCOPES }}" >> ./apps/api/.env
+                  echo "PG_DB_URL_LOCAL=${{ secrets.PG_DB_URL_LOCAL }}" >> ./apps/api/.env
+                  echo "PG_DB_URL_PROD=${{ secrets.PG_DB_URL_PROD }}" >> ./apps/api/.env
+                  echo "REDIS_URL_LOCAL=${{ secrets.REDIS_URL_LOCAL }}" >> ./apps/api/.env
+                  echo "REDIS_URL_PROD=${{ secrets.REDIS_URL_PROD }}" >> ./apps/api/.env
 
             - uses: pnpm/action-setup@v4
               with:
