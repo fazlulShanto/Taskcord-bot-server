@@ -52,5 +52,8 @@ test("Server Info", async () => {
 });
 
 afterAll(async () => {
-    await app.close();
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- github ci giving error
+    if (app) {
+        await app.close();
+    }
 });
