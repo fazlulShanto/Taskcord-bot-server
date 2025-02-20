@@ -4,6 +4,7 @@ import supertest from "supertest";
 import type {
     GetApiStatusResponse,
     GetServerHardwareInfoResponse,
+    GetServerStatusResponse,
 } from "@/modules/utility/utility.schema";
 import { startServer } from "../server";
 
@@ -49,6 +50,37 @@ test("Server Info", async () => {
     expect(response.body.hostname).toBeTypeOf("string");
     expect(response.body).toHaveProperty("type");
     expect(response.body).toHaveProperty("cpus");
+});
+
+test("Server Status", async () => {
+    const response: { body: GetServerStatusResponse } = await supertest(
+        app.server
+    )
+        .get("/api/stable/utility/server-status")
+        .expect("Content-Type", "application/json; charset=utf-8")
+        .expect(200);
+
+    // Check environment
+    expect(response.body).toHaveProperty("environment");
+    expect(response.body.environment).toBeTypeOf("string");
+    
+    // Check database status
+    expect(response.body).toHaveProperty("database");
+    expect(response.body.database).toBeTypeOf("string");
+    
+    // Check cache status
+    expect(response.body).toHaveProperty("cache");
+    expect(response.body.cache).toBeTypeOf("string");
+    
+    // Check server time
+    expect(response.body).toHaveProperty("time");
+    expect(response.body.time).toBeTypeOf("string");
+    expect(response.body.time).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/); // ISO 8601 format
+    
+    // Check uptime
+    expect(response.body).toHaveProperty("uptime");
+    expect(response.body.uptime).toBeTypeOf("number");
+    expect(response.body.uptime).toBeGreaterThan(0);
 });
 
 afterAll(async () => {
