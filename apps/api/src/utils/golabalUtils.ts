@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 class GlobalUtils {
-    private static currentEnv = process.env.NODE_ENV;
+    private static currentEnv = process.env.NODE_ENV || "local";
 
     public static getApiHostUrl(): string {
         if (this.currentEnv === "prod") {
@@ -56,7 +56,7 @@ class GlobalUtils {
     }
 
     public static getCurrentEnv(): string {
-        return this.currentEnv;
+        return this.currentEnv || "local";
     }
 }
 

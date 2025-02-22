@@ -12,7 +12,7 @@ export default function AuthRoute(fastify: FastifyInstance) {
     const userController = new UserController(new UserService());
 
     fastify.get(
-        "/me",
+        "/@me",
         {
             onRequest: [fastify.jwtAuth],
             schema: {
