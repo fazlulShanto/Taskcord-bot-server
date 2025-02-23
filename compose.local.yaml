@@ -7,5 +7,3 @@ services:
       dockerfile: Dockerfile
     ports:
       - "4005:4005"
-    env_file:
-      - apps/api/.env

@@ -15,7 +15,7 @@ WORKDIR /usr/deploy
 COPY . .
 
 # Copy the .env file
-COPY apps/api/.env ./apps/api/.env
+# COPY apps/api/.env ./apps/api/.env
 
 RUN npm install -g pnpm
 
