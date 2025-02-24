@@ -41,20 +41,16 @@ export default class UtilityService {
     public async getServerStatus() {
 
         // Checking database / cache connections
-        const [databaseStatus, cacheStatus] = await Promise.all([
-            checkConnection()
-                .then(connected => connected ? 'connected' : 'disconnected')
-                .catch(() => 'disconnected'),
-            globalCacheDb.ping()
-                .then(response => response === 'PONG' ? 'connected' : 'disconnected') // "PONG" for Redis ping response
-                .catch(() => 'disconnected')
-        ]);
+        const databaseStatus = await checkConnection()
+            .then(connected => connected ? 'connected' : 'disconnected')
+            .catch(() => 'disconnected');
+        const cacheStatus = globalCacheDb.status;
 
         return {
             environment: process.env.NODE_ENV || "local",
             database: databaseStatus,
             cache: cacheStatus,
-            time: new Date().toISOString(),
+            time: Date.now(),
             uptime: Math.floor(process.uptime()),
         };
     }
