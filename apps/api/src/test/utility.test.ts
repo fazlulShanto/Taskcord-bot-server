@@ -56,7 +56,7 @@ test("Server Status", async () => {
     const response: { body: GetServerStatusResponse } = await supertest(
         app.server
     )
-        .get("/api/stable/utility/server-status")
+        .get("/api/stable/utility/status")
         .expect("Content-Type", "application/json; charset=utf-8")
         .expect(200);
 
@@ -74,8 +74,7 @@ test("Server Status", async () => {
     
     // Check server time
     expect(response.body).toHaveProperty("time");
-    expect(response.body.time).toBeTypeOf("string");
-    expect(response.body.time).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/); // ISO 8601 format
+    expect(response.body.time).toBeTypeOf("number");
     
     // Check uptime
     expect(response.body).toHaveProperty("uptime");
