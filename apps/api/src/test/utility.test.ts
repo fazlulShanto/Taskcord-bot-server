@@ -74,7 +74,7 @@ test("Server Status", async () => {
     
     // Check server time
     expect(response.body).toHaveProperty("time");
-    expect(response.body.time).toBeTypeOf("number");
+    expect(response.body.time).toBeTypeOf("string");
     
     // Check uptime
     expect(response.body).toHaveProperty("uptime");
