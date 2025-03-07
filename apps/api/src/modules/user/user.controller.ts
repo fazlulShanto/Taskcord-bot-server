@@ -2,22 +2,45 @@ import type { FastifyReply, FastifyRequest } from "fastify";
 import type UserService from "./user.service";
 
 export default class UserController {
-    private userService: UserService;
+  private userService: UserService;
 
-    constructor(userService: UserService) {
-        this.userService = userService;
+  constructor(userService: UserService) {
+    this.userService = userService;
+  }
+
+  public async me(request: FastifyRequest, reply: FastifyReply) {
+    const userDiscordId = request.jwtUser.discordId;
+
+    const dbUser = await this.userService.me(userDiscordId);
+
+    if (!dbUser) {
+      return reply.notFound();
+    }
+    return reply.send({
+      user: dbUser,
+    });
+  }
+
+  public async getUserDiscordServerList(
+    request: FastifyRequest,
+    reply: FastifyReply
+  ) {
+    const userDiscordId = request.jwtUser.discordId;
+
+    const dbUser = await this.userService.me(userDiscordId);
+
+    if (!dbUser) {
+      return reply.notFound();
     }
 
-    public async me(request: FastifyRequest, reply: FastifyReply) {
-        const userDiscordId = request.jwtUser.discordId;
+    const userAccessToken = dbUser.discordAccessToken;
 
-        const dbUser = await this.userService.me(userDiscordId);
-
-        if (!dbUser) {
-            return reply.notFound();
-        }
-        return reply.send({
-            user: dbUser,
-        });
+    if (!userAccessToken) {
+      return reply.notFound();
     }
+    const discordServerList =
+      await this.userService.getUserDiscordServerList(userAccessToken);
+
+    return reply.send(discordServerList);
+  }
 }
