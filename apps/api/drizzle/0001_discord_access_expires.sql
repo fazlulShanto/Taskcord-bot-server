@@ -1,0 +1,1 @@
+ALTER TABLE "users" ADD COLUMN "discord_access_token_expires_at" timestamp;
