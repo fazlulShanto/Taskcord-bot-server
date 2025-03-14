@@ -31,6 +31,14 @@ const getServerHardwareInfoResponseSchema = z.object({
     ),
 });
 
+const getServerStatusResponseSchema = z.object({
+    environment: z.string(),
+    database: z.string(),
+    cache: z.string(),
+    time: z.string(),
+    uptime: z.number()
+});
+
 const getApiUptimeResponseSchema = z.object({
     uptime: z.number(),
     message: z.string(),
@@ -43,11 +51,14 @@ export type GetServerHardwareInfoResponse = z.infer<
     typeof getServerHardwareInfoResponseSchema
 >;
 
+export type GetServerStatusResponse = z.infer<typeof getServerStatusResponseSchema>;
+
 export const { schemas: utilitySchemas, $ref } = buildJsonSchemas(
     {
         getApiStatusResponseSchema,
         getServerHardwareInfoResponseSchema,
         getApiUptimeResponseSchema,
+        getServerStatusResponseSchema,
     } as const,
     {
         $id: "utilitySchema",

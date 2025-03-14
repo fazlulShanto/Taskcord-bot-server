@@ -46,4 +46,13 @@ export default class UtilityController {
 
         return reply.code(200).send(info);
     }
+
+    public async getServerStatusHandler(
+        request: FastifyRequest,
+        reply: FastifyReply
+    ) {
+        const info = await this.utilityService.getServerStatus(); // Awaits for DB/Cache checks
+
+        return reply.code(200).send(info);
+    }
 }
