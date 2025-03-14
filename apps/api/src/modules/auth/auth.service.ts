@@ -4,8 +4,8 @@ import type {
   DiscordExchangeCodeResponse,
   DiscordUserInfoResponse,
 } from "@/types/discord-auth";
-import { UserDal } from "@/db/dal/user.dal";
-import type { DbUser } from "@/db/models/user.model";
+import { UserDal } from "../../../../../packages/db/dal/user.dal";
+import type { DbUser } from "../../../../../packages/db/src/models/user.model";
 
 function generateState() {
   return crypto.randomBytes(16).toString("hex");

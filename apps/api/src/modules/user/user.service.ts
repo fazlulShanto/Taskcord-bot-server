@@ -1,6 +1,6 @@
 /* eslint-disable no-bitwise */
-import type { DbUser } from "@/db/models/user.model";
-import { UserDal } from "@/db/dal/user.dal";
+import type { DbUser } from "taskcord-bot-server/packages/db/models/user.model";
+import { UserDal } from "taskcord-bot-server/packages/db/dal/user.dal";
 import type { DiscordServerListResponse } from "@/types/discord-auth";
 import type AuthService from "../auth/auth.service";
 

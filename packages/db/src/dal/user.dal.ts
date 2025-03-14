@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-extraneous-class -- This is a DAL class */
 import { eq } from "drizzle-orm";
-import db from "../postgres.db";
+import { db } from "../postgres.db";
 import { usersModel, type DbUser, type DbNewUser } from "../models/user.model";
 
 export class UserDal {
