@@ -1,0 +1,21 @@
+{
+  "name": "@repo/redis",
+  "version": "0.0.0",
+  "private": true,
+  "files": [
+    "build"
+  ],
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsup --dts"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "tsup": "^8.0.2"
+  },
+  "dependencies": {
+    "ioredis": "^5.5.0"
+  }
+}
