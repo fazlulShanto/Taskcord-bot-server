@@ -1,30 +1,31 @@
-FROM node:20-alpine
- 
-WORKDIR /usr/deploy
- 
-# Copy root package.json and lockfile
-# COPY package.json ./
-# COPY pnpm-lock.yaml ./
-# COPY pnpm-workspace.yaml ./
-# COPY turbo.json ./
+# Use Node.js LTS (Long Term Support) as base image
+FROM node:20-slim
 
- 
-# Copy the api package.json
-# COPY apps/api/package.json ./apps/api/package.json
+WORKDIR /app
 
-COPY . .
-
-# Copy the .env file
-# COPY apps/api/.env ./apps/api/.env
-
+# Install pnpm globally
 RUN npm install -g pnpm
 
-RUN pnpm install
+# Copy package files
+# COPY package.json pnpm-lock.yaml* ./
+# COPY packages/api/package.json ./packages/api/
 
-RUN pnpm build
- 
-# Copy app source
- 
-EXPOSE 8080
- 
-CMD [ "node", "apps/api/build/index.js" ]
+# Copy source code
+COPY . .
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile
+
+
+# Build the application
+RUN pnpm build:api
+
+# Expose the port your API runs on (4005 as seen in compose.local.yaml)
+EXPOSE 4005
+
+# Set environment variables
+ENV NODE_ENV=production
+
+# Start the API server
+# CMD ["bash"]
+# CMD ["pnpm", "start"]
