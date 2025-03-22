@@ -7,6 +7,7 @@ CREATE TABLE "users" (
 	"email" varchar DEFAULT '',
 	"discord_refresh_token" varchar,
 	"discord_access_token" varchar,
+	"discord_access_token_expires_at" timestamp,
 	"last_auth" timestamp DEFAULT now(),
 	"is_verified" boolean DEFAULT false,
 	"updated_at" timestamp DEFAULT now(),

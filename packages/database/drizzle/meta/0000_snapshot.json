@@ -1,5 +1,5 @@
 {
-  "id": "ab72cf58-2d73-42e1-aa36-5ffe2f16015a",
+  "id": "0b7f8d8b-ec3d-465f-aeb7-e7d5785ae060",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -55,6 +55,12 @@
         "discord_access_token": {
           "name": "discord_access_token",
           "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "discord_access_token_expires_at": {
+          "name": "discord_access_token_expires_at",
+          "type": "timestamp",
           "primaryKey": false,
           "notNull": false
         },

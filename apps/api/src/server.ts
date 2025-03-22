@@ -2,8 +2,9 @@ import type { FastifyInstance, FastifyServerOptions } from "fastify";
 import Fastify from "fastify";
 import * as dotenv from "dotenv";
 import type { Redis } from "ioredis";
-import CreateRedisClient from "@repo/redis";
-import { checkConnection } from "@/db/postgres.db";
+import { CreateRedisClient } from "@taskcord/redis";
+import { checkConnection } from "@taskcord/database";
+
 import modules from "./modules";
 import plugins from "./plugins";
 import GlobalUtils from "./utils/golabalUtils";
