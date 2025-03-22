@@ -15,7 +15,9 @@
       "push": "drizzle-kit push",
       "pull": "drizzle-kit pull",
       "check": "drizzle-kit check",
-      "studio": "drizzle-kit studio"
+      "studio": "drizzle-kit studio",
+      "typecheck": "tsc --noEmit",
+      "tsc": "tsc"
     },
     "dependencies": {
       "dotenv": "^16.4.5",
