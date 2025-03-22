@@ -12,8 +12,7 @@
     "build": "tsup --dts"
   },
   "devDependencies": {
-    "typescript": "latest",
-    "tsup": "^8.0.2"
+    "typescript": "latest"
   },
   "dependencies": {
     "ioredis": "^5.5.0"
