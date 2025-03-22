@@ -3,14 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ../../build/api/index.js",
+    "start": "node ./dist/index.js",
     "dev": "tsx watch src/index.ts",
     "build": "tsup",
     "clean": "rm -rf ../../build/api",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src/",
+    "ts-build": "tsc --emitDeclarationOnly --declaration",
     "test": "vitest --run",
-    "test:watch": "vitest --watch"
+    "test:watch": "vitest --watch",
+    "preview": "node build/index.js"
   },
   "dependencies": {
     "@fastify/cookie": "^11.0.2",

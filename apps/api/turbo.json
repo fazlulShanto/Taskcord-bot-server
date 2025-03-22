@@ -7,6 +7,10 @@
       "outputs": [
         "../../build/api/src/**"
       ]
+    },
+    "preview": {
+      "dependsOn": ["build"]
+     
     }
   }
 }

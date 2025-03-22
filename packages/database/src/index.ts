@@ -5,7 +5,7 @@ import { getPostgresUrl, getCurrentEnv } from "./utils/env";
 // Create the database connection
 const connectionString = getPostgresUrl();
 if (!connectionString) {
-  throw new Error("Database URL is not defined");
+  throw new Error("Database URL is not defined. ENV =>" + process.env.NODE_ENV );
 }
 
 // Configure the connection pool

@@ -4,9 +4,9 @@ import { defineConfig, type Options } from "tsup";
 
 export default defineConfig((options: Options) => ({
     entryPoints: ["src/index.ts"],
-    outDir: "build",
+    outDir: "dist",
+    target: "es2020",
     clean: true,
-    silent: true,
     sourcemap: true,
     format: ["cjs"],
     ...options,
