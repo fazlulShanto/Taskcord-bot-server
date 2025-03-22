@@ -9,6 +9,7 @@ export default defineConfig((options: Options) => ({
     clean: true,
     sourcemap: true,
     format: ["cjs"],
+    noExternal: ['@taskcord/database', '@taskcord/redis'],
     ...options,
     // async onSuccess() {
     //     // Copy .env file
