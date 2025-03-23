@@ -24,8 +24,9 @@ RUN pnpm build:api
 EXPOSE 4005
 
 # Set environment variables
-ENV NODE_ENV=production
+ENV NODE_ENV=prod
 
 # Start the API server
 # CMD ["bash"]
-# CMD ["pnpm", "start"]
+# CMD ["pnpm", "build:api"]
+CMD ["pnpm","run:api"]
