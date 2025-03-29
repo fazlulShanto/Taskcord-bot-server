@@ -7,18 +7,18 @@ WORKDIR /app
 RUN npm install -g pnpm@9.12.3
 
 ENV PNPM_HOME="~/.pnpm"
-# ENV PNPM_HOME=/app/.pnpm
 RUN mkdir -p $PNPM_HOME
 ENV PATH="$PNPM_HOME:$PATH"
 ENV PNPM_STORE_DIR=/app/.pnpm-store
 
-
-# Copy source code
-COPY . .
+# Copy package files first for better caching
+COPY package.json pnpm-lock.yaml ./
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
+# Copy source code
+COPY . .
 
 # Build the application
 RUN pnpm build:api
@@ -29,5 +29,5 @@ EXPOSE 4005
 # Set environment variables
 ENV NODE_ENV=prod
 
-# Start the API server
-CMD ["pnpm","run:api"]
+# run the api
+CMD ["pnpm", "run:api"]
