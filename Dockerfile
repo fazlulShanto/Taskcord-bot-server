@@ -12,13 +12,13 @@ ENV PATH="$PNPM_HOME:$PATH"
 ENV PNPM_STORE_DIR=/app/.pnpm-store
 
 # Copy package files first for better caching
-COPY package.json pnpm-lock.yaml ./
-
-# Install dependencies
-RUN pnpm install --frozen-lockfile
+# COPY package.json pnpm-lock.yaml ./
 
 # Copy source code
 COPY . .
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile
 
 # Build the application
 RUN pnpm build:api
