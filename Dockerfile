@@ -7,9 +7,9 @@ WORKDIR /app
 RUN npm install -g pnpm@9.12.3
 
 ENV PNPM_HOME="~/.pnpm"
-RUN mkdir -p $PNPM_HOME
-ENV PATH="$PNPM_HOME:$PATH"
-ENV PNPM_STORE_DIR=/app/.pnpm-store
+# RUN mkdir -p $PNPM_HOME
+# ENV PATH="$PNPM_HOME:$PATH"
+# ENV PNPM_STORE_DIR=/app/.pnpm-store
 
 # Copy package files first for better caching
 # COPY package.json pnpm-lock.yaml ./
