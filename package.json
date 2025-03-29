@@ -4,7 +4,6 @@
     "build": "turbo run build",
     "build:api": "turbo run build --filter=api",
     "run:api": "node ./apps/api/dist/index.js",
-    "build:api": "turbo run build --filter=api",
     "clean": "turbo run clean",
     "dev": "turbo run dev",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
