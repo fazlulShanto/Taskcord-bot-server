@@ -1,35 +1,36 @@
-  {
-    "name": "@taskcord/database",
-    "version": "0.0.1",
-    "private": true,
-    "types": "./dist/index.d.ts",
-    "main": "./dist/index.js",
-    "module": "./dist/index.mjs",
-    "scripts": {
-      "build": "tsup",
-      "dev": "tsup --watch",
-      "lint": "eslint \"src/**/*.ts*\"",
-      "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-      "generate": "drizzle-kit generate",
-      "migrate": "drizzle-kit migrate",
-      "push": "drizzle-kit push",
-      "pull": "drizzle-kit pull",
-      "check": "drizzle-kit check",
-      "studio": "drizzle-kit studio",
-      "typecheck": "tsc --noEmit",
-      "tsc": "tsc"
-    },
-    "dependencies": {
-      "dotenv": "^16.4.5",
-      "drizzle-orm": "^0.41.0",
-      "pg": "^8.13.2",
-      "postgres": "^3.4.3",
-      "uuidv7": "^1.0.2"
-    },
-    "devDependencies": {
-      "@types/node": "^20.11.19",
-      "@types/pg": "^8.11.11",
-      "drizzle-kit": "^0.30.5",
-      "typescript": "^5.3.3"
-    }
+{
+  "name": "@taskcord/database",
+  "version": "0.0.1",
+  "private": true,
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate",
+    "push": "drizzle-kit push",
+    "drop": "drizzle-kit drop --out=./drizzle",
+    "pull": "drizzle-kit pull",
+    "check": "drizzle-kit check",
+    "studio": "drizzle-kit studio",
+    "typecheck": "tsc --noEmit",
+    "tsc": "tsc"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.41.0",
+    "pg": "^8.13.2",
+    "postgres": "^3.4.3",
+    "uuidv7": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "@types/pg": "^8.11.11",
+    "drizzle-kit": "^0.30.5",
+    "typescript": "^5.3.3"
   }
+}

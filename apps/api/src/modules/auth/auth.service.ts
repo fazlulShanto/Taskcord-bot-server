@@ -1,10 +1,10 @@
 import crypto from "node:crypto";
+import { UserDal, type DbUser } from "@taskcord/database";
 import GlobalUtils from "@/utils/golabalUtils";
 import type {
   DiscordExchangeCodeResponse,
   DiscordUserInfoResponse,
 } from "@/types/discord-auth";
-import { UserDal, type DbUser } from "@taskcord/database";
 
 function generateState() {
   return crypto.randomBytes(16).toString("hex");

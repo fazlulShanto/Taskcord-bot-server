@@ -17,6 +17,8 @@ export class UserDal {
         avatar: input.avatar,
         email: input.email,
         discordRefreshToken: input.discordRefreshToken,
+        discordAccessToken: input.discordAccessToken,
+        discordAccessTokenExpiresAt: input.discordAccessTokenExpiresAt,
       })
       .returning();
 

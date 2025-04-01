@@ -4,7 +4,6 @@ import * as dotenv from "dotenv";
 import type { Redis } from "ioredis";
 import { CreateRedisClient } from "@taskcord/redis";
 import { checkConnection } from "@taskcord/database";
-
 import modules from "./modules";
 import plugins from "./plugins";
 import GlobalUtils from "./utils/golabalUtils";
@@ -42,7 +41,7 @@ export default class TaskcordServer {
 
   public async initialize(): Promise<void> {
     const redisUrl = GlobalUtils.getRedisUrl();
-    const globalCacheDb = CreateRedisClient(redisUrl!);
+    const globalCacheDb = CreateRedisClient(redisUrl);
     this.app = Fastify(this.serverOptions) as FastifyInstance;
     this.app.decorate("cacheDb", globalCacheDb);
 

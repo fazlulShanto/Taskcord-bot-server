@@ -1,4 +1,4 @@
-/* eslint-disable no-bitwise */
+/* eslint-disable no-bitwise -- needed for discord server list */
 import { UserDal, type DbUser } from "@taskcord/database";
 import type { DiscordServerListResponse } from "@/types/discord-auth";
 import type AuthService from "../auth/auth.service";

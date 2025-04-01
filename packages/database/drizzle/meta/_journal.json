@@ -8,6 +8,62 @@
       "when": 1742634545288,
       "tag": "0000_fast_gabe_jones",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1743253244958,
+      "tag": "0001_project_table",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1743323192974,
+      "tag": "0002_discord_server_id",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1743339830799,
+      "tag": "0003_tan_umar",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1743340349179,
+      "tag": "0004_faithful_morlun",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1743340645785,
+      "tag": "0005_remarkable_shadowcat",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1743340857956,
+      "tag": "0006_serious_wendell_vaughn",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1743346755029,
+      "tag": "0007_young_newton_destine",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1743349070406,
+      "tag": "0008_groovy_vin_gonzales",
+      "breakpoints": true
     }
   ]
 }

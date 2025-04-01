@@ -1,0 +1,1 @@
+ALTER TABLE "server" ADD COLUMN "server_name" varchar DEFAULT '';

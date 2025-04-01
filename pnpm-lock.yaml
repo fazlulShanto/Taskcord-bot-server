@@ -123,6 +123,12 @@ importers:
 
   apps/discord-bot:
     dependencies:
+      '@taskcord/database':
+        specifier: workspace:*
+        version: link:../../packages/database
+      '@taskcord/redis':
+        specifier: workspace:*
+        version: link:../../packages/redis
       discord.js:
         specifier: ^14.17.3
         version: 14.17.3
@@ -154,6 +160,9 @@ importers:
       luxon:
         specifier: ^3.5.0
         version: 3.5.0
+      tsup:
+        specifier: ^8.2.4
+        version: 8.2.4(postcss@8.5.2)(tsx@4.19.2)(typescript@5.5.4)(yaml@2.5.1)
       typescript:
         specifier: 5.5.4
         version: 5.5.4

@@ -5,7 +5,7 @@ import { getPostgresUrl, getCurrentEnv } from "./utils/env";
 // Create the database connection
 const connectionString = getPostgresUrl();
 if (!connectionString) {
-  throw new Error("Database URL is not defined. ENV =>" + process.env.NODE_ENV );
+  throw new Error("Database URL is not defined. ENV =>" + process.env.NODE_ENV);
 }
 
 // Configure the connection pool
@@ -34,7 +34,7 @@ export const checkConnection = async () => {
 };
 
 // Pool event handlers
-pool.on("error", ( ) => {
+pool.on("error", () => {
   console.error("❌ Unexpected error on idle client");
   process.exit(-1);
 });
@@ -49,3 +49,18 @@ export { getPostgresUrl, getCurrentEnv };
 export { usersModel, type DbUser, type DbNewUser } from "./models/user.model";
 //USER DAL
 export { UserDal } from "./dal/user.dal";
+//PROJECT MODEL
+export {
+  projectModel,
+  type DbProject,
+  type DbNewProject,
+} from "./models/project.model";
+//PROJECT DAL
+export { ProjectDal } from "./dal/project.dal";
+//SERVER MODEL
+export {
+  serverModel,
+  type DbServer,
+  type DbNewServer,
+  ServerDal,
+} from "./models/server.model";

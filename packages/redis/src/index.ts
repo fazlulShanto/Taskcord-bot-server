@@ -17,4 +17,4 @@ const CreateRedisClient = (redisUrl: string | undefined) => {
   return valkey;
 };
 
-export { CreateRedisClient };
+export { CreateRedisClient, type Redis };
