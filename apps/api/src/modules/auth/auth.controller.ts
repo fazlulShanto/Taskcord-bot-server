@@ -57,14 +57,6 @@ export default class AuthController {
       7 * 24 * 60 * 60,
       jwtToken
     );
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises -- bad typing in the package
-    reply.setCookie("token", jwtToken, {
-      path: "/",
-      httpOnly: true,
-      secure: ["prod", "stage"].includes(process.env.NODE_ENV),
-      sameSite: "lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
-    });
 
     return reply.redirect(
       `${atob(clientRedirectUrl)}/onboarding?auth_token=${jwtToken}`
