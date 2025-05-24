@@ -13,7 +13,10 @@ export default class AuthController {
     request: FastifyRequest,
     reply: FastifyReply
   ) {
-    const url = this.authService.getDiscordAuthInitUrl();
+    const clientRedirectUrl = (request.query as { redirect_url: string })
+      .redirect_url;
+
+    const url = this.authService.getDiscordAuthInitUrl(clientRedirectUrl);
     return reply.redirect(url);
   }
 
@@ -21,10 +24,12 @@ export default class AuthController {
     request: FastifyRequest,
     reply: FastifyReply
   ) {
-    const { code } = request.query as {
+    const { code, state } = request.query as {
       code: string;
       state: string;
     };
+    //retrive redirect url from state
+    const clientRedirectUrl = state.split("_").pop() || "";
     // TODO: store state in redis and varify here
     const tokenResponse =
       await this.authService.exchangeCodeForAccessToken(code);
@@ -60,9 +65,8 @@ export default class AuthController {
       sameSite: "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
     });
-
     return reply.redirect(
-      `http://localhost:5173/onboarding?auth_token=${jwtToken}`
+      `${atob(clientRedirectUrl)}/onboarding?auth_token=${jwtToken}`
     );
   }
 }

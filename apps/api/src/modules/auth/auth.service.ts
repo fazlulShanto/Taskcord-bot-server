@@ -6,18 +6,16 @@ import type {
   DiscordUserInfoResponse,
 } from "@/types/discord-auth";
 
-function generateState() {
-  return crypto.randomBytes(16).toString("hex");
-}
-
 export default class AuthService {
-  private generateState() {
-    return generateState();
+  private generateState(data: string) {
+    return `${crypto.randomBytes(16).toString("hex")}_${btoa(data)}`;
   }
 
-  public getDiscordAuthInitUrl() {
+  public getDiscordAuthInitUrl(redirectUrl = "") {
     const apiBaseUrl = GlobalUtils.getApiHostUrl();
-    const state = this.generateState();
+    const clientAuthRedirectUrl =
+      redirectUrl || apiBaseUrl + process.env.DISCORD_OAUTH_REDIRECT_URL!;
+    const state = this.generateState(clientAuthRedirectUrl);
     const url = new URL("https://discord.com/oauth2/authorize");
     url.searchParams.set("client_id", process.env.DISCORD_AUTH_CLIENT_ID!);
     url.searchParams.set("response_type", "code");
@@ -33,6 +31,7 @@ export default class AuthService {
   public async exchangeCodeForAccessToken(
     code: string
   ): Promise<DiscordExchangeCodeResponse> {
+    const apiBaseUrl = GlobalUtils.getApiHostUrl();
     const API_ENDPOINT = `https://discord.com/api/v10/oauth2/token`;
     const CLIENT_ID = process.env.DISCORD_AUTH_CLIENT_ID!;
     const CLIENT_SECRET = process.env.DISCORD_AUTH_CLIENT_SECRET!;
@@ -43,7 +42,7 @@ export default class AuthService {
     const requestData = {
       grant_type: "authorization_code",
       code,
-      redirect_uri: `http://localhost:4005/api/edge/auth/discord/oauth-callback`,
+      redirect_uri: `${apiBaseUrl}/api/edge/auth/discord/oauth-callback`,
     };
     const response = await fetch(API_ENDPOINT, {
       method: "POST",
