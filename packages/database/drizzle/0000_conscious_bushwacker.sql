@@ -54,6 +54,21 @@ CREATE TABLE "project_roles" (
 	CONSTRAINT "project_roles_project_id_user_id_role_id_pk" PRIMARY KEY("project_id","user_id","role_id")
 );
 --> statement-breakpoint
+CREATE TABLE "projects" (
+	"id" uuid PRIMARY KEY NOT NULL,
+	"title" varchar NOT NULL,
+	"description" text DEFAULT '',
+	"creator_id" uuid NOT NULL,
+	"manager_id" varchar NOT NULL,
+	"discord_server_id" varchar NOT NULL,
+	"status" varchar DEFAULT '',
+	"created_at" timestamp DEFAULT now(),
+	"logo" varchar DEFAULT '',
+	"starting_timestamp" timestamp,
+	"estimated_completion_timestamp" timestamp,
+	"completed_at" timestamp
+);
+--> statement-breakpoint
 CREATE TABLE "role_feature_permissions" (
 	"role_id" uuid NOT NULL,
 	"feature_id" uuid NOT NULL,
@@ -61,10 +76,13 @@ CREATE TABLE "role_feature_permissions" (
 	CONSTRAINT "role_feature_permissions_role_id_feature_id_permission_id_pk" PRIMARY KEY("role_id","feature_id","permission_id")
 );
 --> statement-breakpoint
-CREATE TABLE "server" (
-	"id" uuid PRIMARY KEY NOT NULL,
+CREATE TABLE "servers" (
+	"server_id" varchar PRIMARY KEY NOT NULL,
 	"owner_id" varchar NOT NULL,
 	"server_logo" varchar,
+	"server_name" varchar DEFAULT '',
+	"is_bot_in_server" boolean DEFAULT false,
+	"last_updated_at" timestamp DEFAULT now(),
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
@@ -87,6 +105,23 @@ CREATE TABLE "tasks" (
 	"updated_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
+CREATE TABLE "users" (
+	"id" uuid PRIMARY KEY NOT NULL,
+	"discord_id" varchar NOT NULL,
+	"full_name" varchar,
+	"nick_name" varchar DEFAULT '',
+	"avatar" varchar,
+	"email" varchar DEFAULT '',
+	"discord_refresh_token" varchar,
+	"discord_access_token" varchar,
+	"discord_access_token_expires_at" timestamp,
+	"last_auth" timestamp DEFAULT now(),
+	"is_verified" boolean DEFAULT false,
+	"updated_at" timestamp DEFAULT now(),
+	"created_at" timestamp DEFAULT now(),
+	CONSTRAINT "users_discord_id_unique" UNIQUE("discord_id")
+);
+--> statement-breakpoint
 ALTER TABLE "comments" ADD CONSTRAINT "comments_task_id_tasks_id_fk" FOREIGN KEY ("task_id") REFERENCES "public"."tasks"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "comments" ADD CONSTRAINT "comments_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "comments" ADD CONSTRAINT "comments_parent_comment_id_comments_id_fk" FOREIGN KEY ("parent_comment_id") REFERENCES "public"."comments"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
@@ -97,6 +132,7 @@ ALTER TABLE "project_defined_roles" ADD CONSTRAINT "project_defined_roles_projec
 ALTER TABLE "project_roles" ADD CONSTRAINT "project_roles_project_id_projects_id_fk" FOREIGN KEY ("project_id") REFERENCES "public"."projects"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "project_roles" ADD CONSTRAINT "project_roles_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "project_roles" ADD CONSTRAINT "project_roles_role_id_project_defined_roles_id_fk" FOREIGN KEY ("role_id") REFERENCES "public"."project_defined_roles"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "projects" ADD CONSTRAINT "projects_creator_id_users_id_fk" FOREIGN KEY ("creator_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "role_feature_permissions" ADD CONSTRAINT "role_feature_permissions_role_id_project_defined_roles_id_fk" FOREIGN KEY ("role_id") REFERENCES "public"."project_defined_roles"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "role_feature_permissions" ADD CONSTRAINT "role_feature_permissions_feature_id_features_id_fk" FOREIGN KEY ("feature_id") REFERENCES "public"."features"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "role_feature_permissions" ADD CONSTRAINT "role_feature_permissions_permission_id_permissions_id_fk" FOREIGN KEY ("permission_id") REFERENCES "public"."permissions"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
