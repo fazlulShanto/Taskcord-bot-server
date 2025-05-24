@@ -49,17 +49,20 @@ export default class UtilityController {
 
   public async cookieTestHandler(request: FastifyRequest, reply: FastifyReply) {
     const isSecure = request.protocol === "https";
+    const isProdOrStage = ["prod", "staging"].includes(process.env.NODE_ENV);
     const cookiesData = request.body as Record<string, string>;
     const keys = Object.keys(cookiesData);
     for (const key of keys) {
       reply.setCookie(key, cookiesData[key], {
         path: "/",
         httpOnly: true,
-        secure: isSecure,
-        sameSite: isSecure ? "none" : "lax",
+        secure: true,
+        sameSite: "none",
         maxAge: 7 * 24 * 60 * 60, // 7 days in seconds
       });
     }
-    return reply.code(200).send({ message: "done", cookiesData });
+    return reply
+      .code(200)
+      .send({ message: "done", cookiesData, isSecure, isProdOrStage });
   }
 }
