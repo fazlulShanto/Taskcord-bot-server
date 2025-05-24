@@ -56,8 +56,8 @@ export default class UtilityController {
         path: "/",
         httpOnly: true,
         secure: isSecure,
-        sameSite: "lax",
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
+        sameSite: isSecure ? "none" : "lax",
+        maxAge: 7 * 24 * 60 * 60, // 7 days in seconds
       });
     }
     return reply.code(200).send({ message: "done", cookiesData });
