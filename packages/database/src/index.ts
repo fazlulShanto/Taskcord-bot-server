@@ -64,3 +64,11 @@ export {
   type DbNewServer,
   ServerDal,
 } from "./models/server.model";
+
+//LABEL MODEL
+export {
+  labelModel,
+  type DbLabel,
+  type DbNewLabel,
+  LabelDal,
+} from "./models/label.model";

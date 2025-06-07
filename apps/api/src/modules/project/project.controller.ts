@@ -45,7 +45,9 @@ export default class ProjectController {
   }
 
   public async getAllProjects(request: FastifyRequest, reply: FastifyReply) {
-    const projects = await this.projectService.getAllProjects();
+    const projects = await this.projectService.getAllProjects(
+      request.jwtUser.id
+    );
     return reply.send({ projects });
   }
 

@@ -18,6 +18,7 @@
     "check": "drizzle-kit check",
     "studio": "drizzle-kit studio",
     "typecheck": "tsc --noEmit",
+    "magic": "drizzle-kit generate && drizzle-kit push",
     "tsc": "tsc"
   },
   "dependencies": {

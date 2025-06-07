@@ -9,30 +9,53 @@ import type { FastifyInstance } from "fastify";
  * @see https://github.com/fastify/fastify-swagger
  */
 export default fastifyPlugin(
-    async (fastify: FastifyInstance) => {
-        await fastify.register(fastifySwagger, {
-            mode: "dynamic",
-            openapi: {
-                info: {
-                    title: "Taskcord API",
-                    version: "0.0.5",
-                },
+  async (fastify: FastifyInstance) => {
+    await fastify.register(fastifySwagger, {
+      mode: "dynamic",
+      openapi: {
+        info: {
+          title: "Taskcord API",
+          version: "0.0.5",
+        },
+      },
+    });
+    await fastify.register(fastifySwaggerUI, {
+      routePrefix: "/api/docs",
+      initOAuth: {},
+      logLevel: "error",
+      uiConfig: {
+        docExpansion: "full",
+        deepLinking: false,
+        persistAuthorization: true,
+      },
+      staticCSP: true,
+      transformSpecification: (swaggerObject: any) => {
+        swaggerObject.components = {
+          ...swaggerObject.components,
+          securitySchemes: {
+            bearerAuth: {
+              type: "http",
+              scheme: "bearer",
+              bearerFormat: "JWT",
+              description: "Enter your JWT token in the format: Bearer <token>",
             },
-        });
+          },
+        };
 
-        await fastify.register(fastifySwaggerUI, {
-            routePrefix: "/api/docs",
-            initOAuth: {},
-            logLevel: "error",
-            uiConfig: {
-                docExpansion: "full",
-                deepLinking: false,
-            },
-            staticCSP: true,
-        });
-    },
-    {
-        dependencies: ["env-config"],
-        fastify: "5.x",
-    }
+        // Add global security requirement
+        swaggerObject.security = [
+          {
+            bearerAuth: [],
+          },
+        ];
+
+        return swaggerObject;
+      },
+      transformSpecificationClone: true,
+    });
+  },
+  {
+    dependencies: ["env-config"],
+    fastify: "5.x",
+  }
 );

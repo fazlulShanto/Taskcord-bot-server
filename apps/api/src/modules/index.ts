@@ -4,6 +4,7 @@ import utility from "./utility";
 import auth from "./auth";
 import userRoutes from "./user";
 import project from "./project";
+import labels from "./labels";
 
 const getOptionsWithPrefix = (
   options: FastifyPluginOptions,
@@ -28,6 +29,10 @@ export default fastifyPlugin(
         getOptionsWithPrefix(options, "/edge/users")
       ),
       fastify.register(project, getOptionsWithPrefix(options, "/edge/project")),
+      fastify.register(
+        labels,
+        getOptionsWithPrefix(options, "/edge/projects/:projectId/labels")
+      ),
     ]);
   }
 );

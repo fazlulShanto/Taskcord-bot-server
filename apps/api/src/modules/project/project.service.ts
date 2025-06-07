@@ -30,11 +30,11 @@ export default class ProjectService {
   }
 
   public async getProject(id: string): Promise<DbProject | null> {
-    return await ProjectDal.getProjectById(id);
+    return ProjectDal.getProjectById(id);
   }
 
-  public async getAllProjects(): Promise<DbProject[]> {
-    return await ProjectDal.getAllProjects();
+  public async getAllProjects(creatorId: string): Promise<DbProject[]> {
+    return ProjectDal.getProjectsByCreatorId(creatorId);
   }
 
   public async getUserProjects(userDiscordId: string): Promise<DbProject[]> {
@@ -45,11 +45,11 @@ export default class ProjectService {
     }
 
     // Get projects where the user is the creator
-    return await ProjectDal.getProjectsByCreatorId(user.id);
+    return ProjectDal.getProjectsByCreatorId(user.id);
   }
 
   public async getProjectsByManager(managerId: string): Promise<DbProject[]> {
-    return await ProjectDal.getProjectsByManagerId(managerId);
+    return ProjectDal.getProjectsByManagerId(managerId);
   }
 
   public async updateProject(
