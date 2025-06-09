@@ -27,6 +27,7 @@ export default function AuthRoute(fastify: FastifyInstance) {
     },
     userController.me.bind(userController)
   );
+
   fastify.get(
     "/discord/guilds",
     {
@@ -42,4 +43,25 @@ export default function AuthRoute(fastify: FastifyInstance) {
     },
     userController.getUserDiscordServerList.bind(userController)
   );
+
+  if (["local", "staging"].includes(process.env.NODE_ENV)) {
+    fastify.post(
+      "/dummy",
+      {
+        onRequest: [fastify.jwtAuth],
+        schema: {
+          tags: ["User"],
+          description: "Create dummy users",
+          query: {
+            type: "object",
+            properties: {
+              userCount: { type: "number" },
+            },
+          },
+        },
+      },
+      // @ts-expect-error - this is a bug in fastify-zod
+      userController.createDummyUsers.bind(userController)
+    );
+  }
 }

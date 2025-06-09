@@ -72,3 +72,10 @@ export {
   type DbNewLabel,
   LabelDal,
 } from "./models/label.model";
+
+export {
+  statusModel,
+  type DbStatus,
+  type DbNewStatus,
+  StatusDal,
+} from "./models/status.model";

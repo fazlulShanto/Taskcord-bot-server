@@ -43,4 +43,13 @@ export default class UserController {
 
     return reply.send(discordServerList);
   }
+
+  public async createDummyUsers(
+    request: FastifyRequest<{ Querystring: { userCount?: number } }>,
+    reply: FastifyReply
+  ) {
+    const userCount = request.query.userCount || 10;
+    const createdUsers = await this.userService.createDummyUser(userCount);
+    return reply.send(createdUsers);
+  }
 }

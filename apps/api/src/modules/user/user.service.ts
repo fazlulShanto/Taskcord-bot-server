@@ -1,7 +1,9 @@
 /* eslint-disable no-bitwise -- needed for discord server list */
-import { UserDal, type DbUser } from "@taskcord/database";
+import { DbNewUser, UserDal, type DbUser } from "@taskcord/database";
 import type { DiscordServerListResponse } from "@/types/discord-auth";
 import type AuthService from "../auth/auth.service";
+import { faker } from "@faker-js/faker";
+import { uuidv7 } from "uuidv7";
 
 export default class UserService {
   private authService: AuthService;
@@ -55,5 +57,57 @@ export default class UserService {
     });
 
     return filteredServers;
+  }
+
+  public async createDummyUser(userCount: number): Promise<DbUser[]> {
+    const users = [];
+
+    for (let i = 0; i < userCount; i++) {
+      const discordId = faker.number
+        .bigInt({ min: "100000000000000000", max: "999999999999999999" })
+        .toString();
+      const fullName = faker.person.fullName();
+      const nickName = faker.person.firstName();
+      const avatar = faker.image.urlLoremFlickr({ category: "people" });
+      const email = faker.internet.email();
+      const discordRefreshToken = faker.string.alphanumeric(30);
+      const discordAccessToken = faker.string.alphanumeric(40);
+      const now = new Date();
+      const lastAuth = new Date(now.getTime() - 1000 * 60 * 60 * 24); // 1 day ago
+      const expiresAt = new Date(now.getTime() + 1000 * 60 * 60 * 24 * 7); // 7 days from now
+      const isVerified = true;
+      const updatedAt = now;
+      const createdAt = faker.date.between({
+        from: "2025-05-01",
+        to: now,
+      });
+
+      const dbUserData: DbNewUser = {
+        discordId: discordId,
+        fullName: fullName,
+        nickName: nickName,
+        avatar: avatar,
+        email: email,
+        discordRefreshToken: discordRefreshToken,
+        discordAccessToken: discordAccessToken,
+        discordAccessTokenExpiresAt: expiresAt,
+        lastAuth: lastAuth,
+        isVerified: isVerified,
+        updatedAt: updatedAt,
+        createdAt: createdAt,
+      };
+
+      users.push(dbUserData);
+    }
+
+    // create users in db
+    const userPromises = [];
+    for (const user of users) {
+      userPromises.push(UserDal.createUser(user));
+    }
+
+    const createdUsers = await Promise.all(userPromises);
+
+    return createdUsers;
   }
 }

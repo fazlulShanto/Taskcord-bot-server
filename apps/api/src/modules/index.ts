@@ -5,6 +5,7 @@ import auth from "./auth";
 import userRoutes from "./user";
 import project from "./project";
 import labels from "./labels";
+import statuses from "./statuses";
 
 const getOptionsWithPrefix = (
   options: FastifyPluginOptions,
@@ -32,6 +33,10 @@ export default fastifyPlugin(
       fastify.register(
         labels,
         getOptionsWithPrefix(options, "/edge/projects/:projectId/labels")
+      ),
+      fastify.register(
+        statuses,
+        getOptionsWithPrefix(options, "/edge/projects/:projectId/statuses")
       ),
     ]);
   }
