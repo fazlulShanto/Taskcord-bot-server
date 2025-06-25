@@ -1,59 +1,59 @@
 name: CI
 
 on:
-    push:
-        branches: ["main"]
-    pull_request:
-        branches: ["main"]
-        types: [opened, synchronize]
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+    types: [opened, synchronize]
 
 jobs:
-    build_and_test:
-        name: Build and Test
-        timeout-minutes: 15
-        runs-on: ubuntu-latest
-        environment: test
+  build_and_test:
+    name: Build and Test
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    environment: test
 
-        steps:
-            - name: Check out code
-              uses: actions/checkout@v4
-              with:
-                  fetch-depth: 2
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
-            - name: Create .env file
-              run: |
-                  echo "PORT=${{ vars.PORT }}" > ./apps/api/.env
-                  echo "NODE_ENV=${{ vars.NODE_ENV }}" >> ./apps/api/.env
-                  echo "REMOTE_BACKEND_HOST_URL=${{ vars.REMOTE_BACKEND_HOST_URL }}" >> ./apps/api/.env
-                  echo "LOCAL_BACKEND_HOST_URL=${{ vars.LOCAL_BACKEND_HOST_URL }}" >> ./apps/api/.env
-                  echo "DISCORD_OAUTH_REDIRECT_URL=${{ vars.DISCORD_OAUTH_REDIRECT_URL }}" >> ./apps/api/.env
-                  echo "DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }}" >> ./apps/api/.env
-                  echo "DISCORD_AUTH_CLIENT_ID=${{ vars.DISCORD_AUTH_CLIENT_ID }}" >> ./apps/api/.env
-                  echo "DISCORD_AUTH_CLIENT_SECRET=${{ secrets.DISCORD_AUTH_CLIENT_SECRET }}" >> ./apps/api/.env
-                  echo "FRONTEND_REDIRECT_URL=${{ vars.FRONTEND_REDIRECT_URL }}" >> ./apps/api/.env
-                  echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> ./apps/api/.env
-                  echo "JWT_MAX_AGE=${{ vars.JWT_MAX_AGE }}" >> ./apps/api/.env
-                  echo "DISCORD_OAUTH_SCOPES=${{ vars.DISCORD_OAUTH_SCOPES }}" >> ./apps/api/.env
-                  echo "PG_DB_URL_LOCAL=${{ secrets.PG_DB_URL_LOCAL }}" >> ./apps/api/.env
-                  echo "PG_DB_URL_PROD=${{ secrets.PG_DB_URL_PROD }}" >> ./apps/api/.env
-                  echo "REDIS_URL_LOCAL=${{ secrets.REDIS_URL_LOCAL }}" >> ./apps/api/.env
-                  echo "REDIS_URL_PROD=${{ secrets.REDIS_URL_PROD }}" >> ./apps/api/.env
+      - name: Create .env file
+        run: |
+          echo "PORT=${{ vars.PORT }}" > ./apps/api/.env
+          echo "NODE_ENV=${{ vars.NODE_ENV }}" >> ./apps/api/.env
+          echo "REMOTE_BACKEND_HOST_URL=${{ vars.REMOTE_BACKEND_HOST_URL }}" >> ./apps/api/.env
+          echo "LOCAL_BACKEND_HOST_URL=${{ vars.LOCAL_BACKEND_HOST_URL }}" >> ./apps/api/.env
+          echo "DISCORD_OAUTH_REDIRECT_URL=${{ vars.DISCORD_OAUTH_REDIRECT_URL }}" >> ./apps/api/.env
+          echo "DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }}" >> ./apps/api/.env
+          echo "DISCORD_AUTH_CLIENT_ID=${{ vars.DISCORD_AUTH_CLIENT_ID }}" >> ./apps/api/.env
+          echo "DISCORD_AUTH_CLIENT_SECRET=${{ secrets.DISCORD_AUTH_CLIENT_SECRET }}" >> ./apps/api/.env
+          echo "FRONTEND_REDIRECT_URL=${{ vars.FRONTEND_REDIRECT_URL }}" >> ./apps/api/.env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> ./apps/api/.env
+          echo "JWT_MAX_AGE=${{ vars.JWT_MAX_AGE }}" >> ./apps/api/.env
+          echo "DISCORD_OAUTH_SCOPES=${{ vars.DISCORD_OAUTH_SCOPES }}" >> ./apps/api/.env
+          echo "PG_DB_URL_LOCAL=${{ secrets.PG_DB_URL_LOCAL }}" >> ./apps/api/.env
+          echo "PG_DB_URL_PROD=${{ secrets.PG_DB_URL_PROD }}" >> ./apps/api/.env
+          echo "REDIS_URL_LOCAL=${{ secrets.REDIS_URL_LOCAL }}" >> ./apps/api/.env
+          echo "REDIS_URL_PROD=${{ secrets.REDIS_URL_PROD }}" >> ./apps/api/.env
 
-            - uses: pnpm/action-setup@v4
-              with:
-                  version: 9.12.3
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.12.1
 
-            - name: Setup Node.js environment
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 22
-                  cache: "pnpm"
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
 
-            - name: Install dependencies
-              run: pnpm install
+      - name: Install dependencies
+        run: pnpm install
 
-            - name: Build
-              run: pnpm build
+      - name: Build
+        run: pnpm build
 
-            - name: Test
-              run: pnpm test
+      - name: Test
+        run: pnpm test
