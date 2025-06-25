@@ -7,7 +7,7 @@ import {
   integer,
 } from "drizzle-orm/pg-core";
 import { uuidv7 } from "uuidv7";
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import { db } from "../index";
 import { projectModel } from "./project.model";
 
@@ -76,5 +76,12 @@ export class StatusDal {
       .returning();
 
     return status;
+  }
+  static async deleteStatusBulk(ids: string[]): Promise<DbStatus[]> {
+    const statuses = await db
+      .delete(statusModel)
+      .where(inArray(statusModel.id, ids))
+      .returning();
+    return statuses;
   }
 }

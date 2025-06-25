@@ -90,4 +90,24 @@ export default function StatusRoutes(fastify: FastifyInstance) {
     // @ts-expect-error - this is a bug in fastify-zod
     statusController.deleteStatus.bind(statusController)
   );
+
+  // Delete multiple statuses
+  fastify.delete(
+    "/bulk",
+    {
+      onRequest: [fastify.jwtAuth],
+      schema: {
+        tags: ["Task Statuses"],
+        description: "Delete multiple task statuses",
+        body: {
+          type: "object",
+          properties: {
+            ids: { type: "array", items: { type: "string" } },
+          },
+        },
+      },
+    },
+    // @ts-expect-error - this is a bug in fastify-zod
+    statusController.deleteStatusBulk.bind(statusController)
+  );
 }

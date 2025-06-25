@@ -91,4 +91,17 @@ export default class StatusController {
 
     return reply.send({ status });
   }
+
+  async deleteStatusBulk(
+    request: FastifyRequest<{
+      Body: { ids: string[] };
+    }>,
+    reply: FastifyReply
+  ) {
+    const statuses = await this.statusService.deleteStatusBulk(
+      request.body.ids
+    );
+
+    return reply.send({ statuses });
+  }
 }

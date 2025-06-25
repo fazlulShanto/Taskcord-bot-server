@@ -23,4 +23,8 @@ export default class StatusService {
   public async deleteStatus(id: string): Promise<DbStatus | null> {
     return StatusDal.deleteStatus(id);
   }
+
+  public async deleteStatusBulk(ids: string[]): Promise<DbStatus[]> {
+    return StatusDal.deleteStatusBulk(ids);
+  }
 }
