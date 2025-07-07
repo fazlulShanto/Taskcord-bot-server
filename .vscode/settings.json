@@ -1,20 +1,111 @@
+// {
+//     "eslint.workingDirectories": [
+//         {
+//             "mode": "auto"
+//         }
+//     ],
+//     "editor.codeActionsOnSave": {
+//         "source.fixAll": "always",
+//         "source.fixAll.eslint": "always"
+//     },
+//     "eslint.validate": [
+//         "javascript",
+//         "javascriptreact",
+//         "typescript",
+//         "typescriptreact"
+//     ],
+//     "eslint.format.enable": false,
+//     "editor.formatOnSave": true,
+//     "editor.defaultFormatter": "esbenp.prettier-vscode"
+// }
+
 {
-    "eslint.workingDirectories": [
-        {
-            "mode": "auto"
-        }
-    ],
-    "editor.codeActionsOnSave": {
-        "source.fixAll": "always",
-        "source.fixAll.eslint": "always"
-    },
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact"
-    ],
-    "eslint.format.enable": false,
+  "editor.formatOnPaste": true,
+  "editor.fontSize": 13,
+  "terminal.integrated.fontSize": 11,
+  "editor.fontLigatures": true,
+  "editor.lineHeight": 20,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.bracketPairColorization.enabled": true,
+  "workbench.settings.editor": "json",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.autoSave": "onFocusChange",
+  "explorer.openEditors.visible": 1,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.sortImports": "always",
+    "source.organizeImports": "always",
+    "source.addMissingImports.ts": "always"
+  },
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.tabSize": 2,
+  "tailwindCSS.includeLanguages": {
+    "javascriptreact": "javascript",
+    "typescriptreact": "javascript",
+    "typescript JSX": "html"
+  },
+  "tailwindCSS.experimental.classRegex": [["clsx\\(([^)]*)\\)", "'([^']*)'"]],
+  "[javascript]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "explorer.confirmDelete": false,
+  "editor.snippetSuggestions": "top",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "editor.guides.bracketPairs": "active",
+  "workbench.editorAssociations": {
+    "*.ttf": "default"
+  },
+  "[python]": {
+    "editor.formatOnType": true
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "tailwindCSS.suggestions": true,
+  "search.exclude": {
+    "**/node_modules": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/tmp": true,
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/dist": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/tmp/**": true,
+    "**/bower_components/**": true,
+    "**/dist/**": true
+  },
+  "workbench.colorTheme": "Learn with Sumit Theme"
+
 }
