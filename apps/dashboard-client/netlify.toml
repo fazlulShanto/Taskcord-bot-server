@@ -6,4 +6,4 @@
 [build]
 base = "."
 command = "npx turbo run build --filter=taskcord-dashboard"
-publish = "apps/dashboard-client/dist"
+publish = "/dist"
